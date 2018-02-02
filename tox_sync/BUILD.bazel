@@ -1,0 +1,8 @@
+cc_binary(
+    name = "tox_sync",
+    srcs = ["tox_sync.c"],
+    deps = [
+        "//c-toxcore",
+        "//toxins/util:misc_tools",
+    ],
+)

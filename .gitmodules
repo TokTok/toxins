@@ -1,0 +1,3 @@
+[submodule "toxvpn/import"]
+	path = toxvpn/import
+	url = https://github.com/cleverca22/toxvpn

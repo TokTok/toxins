@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "misc_tools.h"
+
 // You are responsible for freeing the return value!
 uint8_t *hex_string_to_bin(const char *hex_string)
 {
@@ -68,6 +70,10 @@ int cmdline_parsefor_ipv46(int argc, char **argv, uint8_t *ipv6enabled)
     int argvoffset = 0, argi;
 
     for (argi = 1; argi < argc; argi++) {
+        if (!strcmp(argv[argi], "--help") || !strcmp(argv[argi], "-h")) {
+            return -255;
+        }
+
         if (!tox_strncasecmp(argv[argi], "--ipv", 5)) {
             if (argv[argi][5] && !argv[argi][6]) {
                 char c = argv[argi][5];
