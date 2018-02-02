@@ -1,9 +1,10 @@
-language: c
+language: c++
 compiler: clang
 
 addons:
   apt:
     packages:
+    - libcap-dev
     - libopus-dev
     - libvpx-dev
 
@@ -23,6 +24,8 @@ install:
 # c-toxcore
 - git clone --depth=1 https://github.com/TokTok/c-toxcore
 - test -f $HOME/cache/usr/lib/libtoxcore.so || (cd c-toxcore && cmake -B_build -H. -DCMAKE_INSTALL_PREFIX:PATH=$HOME/cache/usr && make -C_build install -j$(nproc))
+# nlohmann-json
+- wget https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp -O $HOME/cache/usr/include/json.hpp
 
 script:
-- make
+- make -k -j$(nproc) && make check

@@ -1,0 +1,34 @@
+cc_binary(
+    name = "toxvpn",
+    srcs = [
+        "import/src/control.cpp",
+        "import/src/control.h",
+        "import/src/epoll_target.h",
+        "import/src/interface.cpp",
+        "import/src/interface.h",
+        "import/src/interface_linux.cpp",
+        "import/src/listener.cpp",
+        "import/src/listener.h",
+        "import/src/main.cpp",
+        "import/src/main.h",
+        "import/src/route.h",
+        "import/src/route_linux.cpp",
+    ],
+    copts = [
+        "-fexceptions",  # toxvpn uses exceptions.
+        "-frtti",  # json.hpp uses dynamic_cast.
+        "'-DBOOTSTRAP_FILE=\"toxins/toxvpn/import/res/bootstrap.json\"'",
+        "-DZMQ",
+    ],
+    deps = [
+        "//c-toxcore",
+        "@libcap",
+        "@libzmq",
+    ],
+)
+
+cc_binary(
+    name = "toxvpn-remote",
+    srcs = ["import/src/toxvpn-remote.cpp"],
+    deps = ["@libzmq"],
+)

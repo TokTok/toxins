@@ -1,0 +1,8 @@
+cc_binary(
+    name = "irc_syncbot",
+    srcs = ["irc_syncbot.c"],
+    deps = [
+        "//c-toxcore",
+        "//toxins/util:misc_tools",
+    ],
+)

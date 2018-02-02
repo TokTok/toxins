@@ -1,0 +1,9 @@
+cc_binary(
+    name = "tox_shell",
+    srcs = ["tox_shell.c"],
+    linkopts = ["-lutil"],
+    deps = [
+        "//c-toxcore",
+        "//toxins/util:misc_tools",
+    ],
+)

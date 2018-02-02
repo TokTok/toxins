@@ -1,0 +1,8 @@
+load("//tools:no_undefined.bzl", "cc_library")
+
+cc_library(
+    name = "misc_tools",
+    srcs = ["misc_tools.c"],
+    hdrs = ["misc_tools.h"],
+    visibility = ["//toxins:__subpackages__"],
+)

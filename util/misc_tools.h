@@ -1,6 +1,10 @@
 #ifndef MISC_TOOLS_H
 #define MISC_TOOLS_H
 
+#ifndef __cplusplus
+#define nullptr NULL
+#endif
+
 /* Reimplementation of strncasecmp() function from strings.h, as strings.h is
  * POSIX and not portable. Specifically it doesn't exist on MSVC.
  */

@@ -45,10 +45,6 @@
 #endif
 #include <fcntl.h>
 
-#ifndef __cplusplus
-#define nullptr NULL
-#endif
-
 static void print_online(Tox *tox, uint32_t friendnumber, TOX_CONNECTION status, void *userdata)
 {
     if (status) {
@@ -71,7 +67,7 @@ int main(int argc, char *argv[])
     uint8_t ipv6enabled = 1; /* x */
     int argvoffset = cmdline_parsefor_ipv46(argc, argv, &ipv6enabled);
 
-    if (argvoffset < 0) {
+    if (argvoffset == -1) {
         exit(1);
     }
 
