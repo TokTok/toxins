@@ -6,14 +6,21 @@ cc_binary(
         "import/src/epoll_target.h",
         "import/src/interface.cpp",
         "import/src/interface.h",
-        "import/src/interface_linux.cpp",
         "import/src/listener.cpp",
         "import/src/listener.h",
         "import/src/main.cpp",
         "import/src/main.h",
         "import/src/route.h",
-        "import/src/route_linux.cpp",
-    ],
+    ] + select({
+        "//tools/config:linux": [
+            "import/src/interface_linux.cpp",
+            "import/src/route_linux.cpp",
+        ],
+        "//tools/config:osx": [
+            "import/src/interface_mac.cpp",
+            "import/src/route_mac.cpp",
+        ],
+    }),
     copts = [
         "-fexceptions",  # toxvpn uses exceptions.
         "-frtti",  # json.hpp uses dynamic_cast.
@@ -22,9 +29,12 @@ cc_binary(
     ],
     deps = [
         "//c-toxcore",
-        "@libcap",
+        "@json",
         "@libzmq",
-    ],
+    ] + select({
+        "//tools/config:linux": ["@libcap"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_binary(
