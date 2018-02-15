@@ -1,6 +1,6 @@
-PROGRAM = tox_sync
+PROGRAM = echobot
 
-$(PROGRAM): $(PROGRAM).c ../util/misc_tools.c
+$(PROGRAM): $(PROGRAM).c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ -static -ltoxcore -lsodium -lpthread
 
 clean:

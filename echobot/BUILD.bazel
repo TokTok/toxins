@@ -1,0 +1,5 @@
+cc_binary(
+    name = "echobot",
+    srcs = ["echobot.c"],
+    deps = ["//c-toxcore"],
+)

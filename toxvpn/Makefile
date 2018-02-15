@@ -11,10 +11,10 @@ SOURCES :=				\
 build: $(PROGRAM) toxvpn-remote
 
 $(PROGRAM): $(SOURCES)
-	$(LINK.cpp) -I. -o $@ $^ -static -std=c++11 -ltoxcore -lsodium -lpthread -lcap -DBOOTSTRAP_FILE='"$(CURDIR)/import/res/bootstrap.json"'
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -I. -o $@ $^ -static -std=c++11 -ltoxcore -lsodium -lpthread -lcap -DBOOTSTRAP_FILE='"$(CURDIR)/import/res/bootstrap.json"'
 
 toxvpn-remote: import/src/toxvpn-remote.cpp
-	$(LINK.cpp) -I. -o $@ $^ -static -std=c++11           -lsodium -lpthread
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -I. -o $@ $^ -static -std=c++11           -lsodium -lpthread
 
 clean:
 	rm -f $(PROGRAM) toxvpn-remote

@@ -1,7 +1,7 @@
 PROGRAM = tox_shell
 
 $(PROGRAM): $(PROGRAM).c ../util/misc_tools.c
-	$(LINK.c) -o $@ $^ -static -ltoxcore -lsodium -lpthread -lutil
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ -static -ltoxcore -lsodium -lpthread -lutil
 
 clean:
 	rm -f $(PROGRAM)
