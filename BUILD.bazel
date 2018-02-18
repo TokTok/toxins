@@ -1,0 +1,4 @@
+load("//tools:project.bzl", "project")
+
+project("toxins")
+
