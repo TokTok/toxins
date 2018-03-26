@@ -48,7 +48,7 @@ void self_connection_status_cb(Tox *tox, TOX_CONNECTION connection_status, void 
 int main(int argc, char **argv)
 {
     for (char **arg = argv; arg < argv + argc; ++arg) {
-        if (strcmp(*arg, "--help") == 0 || strcmp(*arg, "-h")) {
+        if (strcmp(*arg, "--help") == 0 || strcmp(*arg, "-h") == 0) {
             printf("Usage: %s\n", argv[0]);
             return 0;
         }
