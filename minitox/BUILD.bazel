@@ -1,0 +1,11 @@
+cc_binary(
+    name = "minitox",
+    srcs = ["import/minitox.c"],
+    deps = ["//c-toxcore"],
+)
+
+sh_test(
+    name = "minitox_test",
+    srcs = [":minitox"],
+    args = ["--help"],
+)

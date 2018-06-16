@@ -6,3 +6,9 @@ cc_binary(
         "//toxins/util:misc_tools",
     ],
 )
+
+sh_test(
+    name = "irc_syncbot_test",
+    srcs = [":irc_syncbot"],
+    args = ["--help"],
+)

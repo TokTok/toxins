@@ -7,3 +7,9 @@ cc_binary(
         "//toxins/util:misc_tools",
     ],
 )
+
+sh_test(
+    name = "tox_shell_test",
+    srcs = [":tox_shell"],
+    args = ["--help"],
+)

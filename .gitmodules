@@ -1,3 +1,6 @@
 [submodule "toxvpn/import"]
 	path = toxvpn/import
 	url = https://github.com/cleverca22/toxvpn
+[submodule "minitox/import"]
+	path = minitox/import
+	url = https://github.com/hqwrong/minitox

@@ -26,6 +26,7 @@ tool's `Makefile`. By default, at least the `--help` flag is tested there.
 
 * **irc_syncbot**: Bot that synchronizes an IRC channel and a Tox group chat
   (conference).
+* **minitox**: Minimal but fully functional command line Tox client.
 * **tox_shell**: Proof of concept SSH-like server software using Tox. Testing
   program, not intended for actual use.
 * **tox_sync**: Bittorrent-sync-like software using Tox. Syncs two directories

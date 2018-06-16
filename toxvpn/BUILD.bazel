@@ -42,3 +42,10 @@ cc_binary(
     srcs = ["import/src/toxvpn-remote.cpp"],
     deps = ["@libzmq"],
 )
+
+sh_test(
+    name = "toxvpn_test",
+    srcs = [":toxvpn"],
+    args = ["--help"],
+    data = ["import/res/bootstrap.json"],
+)

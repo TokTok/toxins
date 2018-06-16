@@ -3,3 +3,9 @@ cc_binary(
     srcs = ["echobot.c"],
     deps = ["//c-toxcore"],
 )
+
+sh_test(
+    name = "echobot_test",
+    srcs = [":echobot"],
+    args = ["--help"],
+)
