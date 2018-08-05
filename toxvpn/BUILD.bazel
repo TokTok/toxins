@@ -26,6 +26,7 @@ cc_binary(
         "-frtti",  # json.hpp uses dynamic_cast.
         "'-DBOOTSTRAP_FILE=\"toxins/toxvpn/import/res/bootstrap.json\"'",
         "-DZMQ",
+        "-Wno-error=sign-compare",
     ],
     deps = [
         "//c-toxcore",
