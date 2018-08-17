@@ -1,31 +1,32 @@
+---
 language: c++
 compiler: clang
 
 addons:
   apt:
     packages:
-    - libcap-dev
-    - libopus-dev
-    - libvpx-dev
+      - libcap-dev
+      - libopus-dev
+      - libvpx-dev
 
 cache:
   directories:
-  - $HOME/cache
+    - $HOME/cache
 
 install:
-# Where to find libraries.
-- export LD_LIBRARY_PATH="$HOME/cache/usr/lib"
-- export PKG_CONFIG_PATH="$HOME/cache/usr/lib/pkgconfig"
-- export CPPFLAGS="-I$HOME/cache/usr/include"
-- export LDFLAGS="-L$HOME/cache/usr/lib"
-# c-sodium
-- git clone --depth=1 --branch=stable https://github.com/jedisct1/libsodium
-- test -f $HOME/cache/usr/lib/libsodium.so || (cd libsodium && ./configure --prefix=$HOME/cache/usr && make install -j$(nproc))
-# c-toxcore
-- git clone --depth=1 https://github.com/TokTok/c-toxcore
-- test -f $HOME/cache/usr/lib/libtoxcore.so || (cd c-toxcore && cmake -B_build -H. -DCMAKE_INSTALL_PREFIX:PATH=$HOME/cache/usr && make -C_build install -j$(nproc))
-# nlohmann-json
-- wget https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp -O $HOME/cache/usr/include/json.hpp
+  # Where to find libraries.
+  - export LD_LIBRARY_PATH="$HOME/cache/usr/lib"
+  - export PKG_CONFIG_PATH="$HOME/cache/usr/lib/pkgconfig"
+  - export CPPFLAGS="-I$HOME/cache/usr/include"
+  - export LDFLAGS="-L$HOME/cache/usr/lib"
+  # c-sodium
+  - git clone --depth=1 --branch=stable https://github.com/jedisct1/libsodium
+  - test -f $HOME/cache/usr/lib/libsodium.so || (cd libsodium && ./configure --prefix=$HOME/cache/usr && make install -j$(nproc))
+  # c-toxcore
+  - git clone --depth=1 https://github.com/TokTok/c-toxcore
+  - test -f $HOME/cache/usr/lib/libtoxcore.so || (cd c-toxcore && cmake -B_build -H. -DCMAKE_INSTALL_PREFIX:PATH=$HOME/cache/usr && make -C_build install -j$(nproc))
+  # nlohmann-json
+  - wget https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp -O $HOME/cache/usr/include/json.hpp
 
 script:
-- make -k -j$(nproc) && make check
+  - make -k -j$(nproc) && make check
