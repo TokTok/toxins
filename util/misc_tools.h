@@ -5,6 +5,9 @@
 #define nullptr NULL
 #endif
 
+#include <stddef.h>
+#include <stdint.h>
+
 /* Reimplementation of strncasecmp() function from strings.h, as strings.h is
  * POSIX and not portable. Specifically it doesn't exist on MSVC.
  */

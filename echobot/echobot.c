@@ -1,8 +1,13 @@
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200809L
+#endif
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include <unistd.h>
 
@@ -99,7 +104,10 @@ int main(int argc, char **argv)
     while (1) {
         tox_iterate(tox, NULL);
 
-        usleep(tox_iteration_interval(tox) * 1000);
+        struct timespec pause;
+        pause.tv_sec = 0;
+        pause.tv_nsec = tox_iteration_interval(tox) * 1000 * 1000;
+        nanosleep(&pause, NULL);
     }
 
     tox_kill(tox);

@@ -21,13 +21,20 @@
  * You should have received a copy of the GNU General Public License
  * along with Tox.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#ifndef _POSIX_C_SOURCE
+// For nanosleep().
+#define _POSIX_C_SOURCE 199309L
+#endif
+
+#include "misc_tools.h"
+
 #include <ctype.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "misc_tools.h"
+#include <time.h>
 
 // You are responsible for freeing the return value!
 uint8_t *hex_string_to_bin(const char *hex_string)
@@ -113,6 +120,9 @@ void c_sleep(uint32_t x)
 #include <unistd.h>
 void c_sleep(uint32_t x)
 {
-    usleep(1000 * x);
+    struct timespec req;
+    req.tv_sec = x / 1000;
+    req.tv_nsec = (long)x % 1000 * 1000 * 1000;
+    nanosleep(&req, nullptr);
 }
 #endif
