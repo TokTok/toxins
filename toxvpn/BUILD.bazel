@@ -26,7 +26,12 @@ cc_binary(
         "-frtti",  # json.hpp uses dynamic_cast.
         "'-DBOOTSTRAP_FILE=\"toxins/toxvpn/import/res/bootstrap.json\"'",
         "-DZMQ",
+        # TODO(https://github.com/cleverca22/toxvpn/issues/27): Remove.
         "-Wno-error=sign-compare",
+        # TODO(https://github.com/cleverca22/toxvpn/issues/26): Remove these 3.
+        "-Wno-error=unused-but-set-variable",
+        "-Wno-error=unused-result",
+        "-Wno-error=unused-variable",
     ],
     deps = [
         "//c-toxcore",
@@ -41,6 +46,7 @@ cc_binary(
 cc_binary(
     name = "toxvpn-remote",
     srcs = ["import/src/toxvpn-remote.cpp"],
+    copts = ["-Wno-error=unused-result"],
     deps = ["@libzmq"],
 )
 

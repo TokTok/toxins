@@ -1,6 +1,7 @@
 cc_binary(
     name = "minitox",
     srcs = ["import/minitox.c"],
+    copts = ["-Wno-error=unused-result"],
     deps = ["//c-toxcore"],
 )
 
