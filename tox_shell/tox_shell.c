@@ -58,8 +58,8 @@ static void print_message(Tox *tox, uint32_t friendnumber, TOX_MESSAGE_TYPE type
                           void *userdata)
 {
     int master = *((int *)userdata);
-    write(master, string, length);
-    write(master, "\n", 1);
+    (void)write(master, string, length);
+    (void)write(master, "\n", 1);
 }
 
 int main(int argc, char *argv[])

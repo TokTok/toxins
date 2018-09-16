@@ -1,7 +1,6 @@
 cc_binary(
     name = "tox_shell",
     srcs = ["tox_shell.c"],
-    copts = ["-Wno-error=unused-result"],
     linkopts = ["-lutil"],
     deps = [
         "//c-toxcore",
