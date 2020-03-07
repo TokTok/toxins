@@ -178,7 +178,7 @@ static void file_request_accept(Tox *tox, uint32_t friend_number, uint32_t file_
     }
 }
 
-static void file_print_control(Tox *tox, uint32_t friend_number, uint32_t file_number, TOX_FILE_CONTROL control,
+static void file_print_control(Tox *tox, uint32_t friend_number, uint32_t file_number, Tox_File_Control control,
                                void *user_data)
 {
     if (file_number < (1 << 15) && (control == TOX_FILE_CONTROL_CANCEL)) {
@@ -217,7 +217,7 @@ static void write_file(Tox *tox, uint32_t friendnumber, uint32_t filenumber, uin
     }
 }
 
-static void print_online(Tox *tox, uint32_t friendnumber, TOX_CONNECTION status, void *userdata)
+static void print_online(Tox *tox, uint32_t friendnumber, Tox_Connection status, void *userdata)
 {
     if (status) {
         printf("\nOther went online.\n");

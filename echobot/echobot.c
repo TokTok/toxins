@@ -27,13 +27,13 @@ void friend_request_cb(Tox *tox, const uint8_t *public_key, const uint8_t *messa
     tox_friend_add_norequest(tox, public_key, NULL);
 }
 
-void friend_message_cb(Tox *tox, uint32_t friend_number, TOX_MESSAGE_TYPE type, const uint8_t *message,
+void friend_message_cb(Tox *tox, uint32_t friend_number, Tox_Message_Type type, const uint8_t *message,
                        size_t length, void *user_data)
 {
     tox_friend_send_message(tox, friend_number, type, message, length, NULL);
 }
 
-void self_connection_status_cb(Tox *tox, TOX_CONNECTION connection_status, void *user_data)
+void self_connection_status_cb(Tox *tox, Tox_Connection connection_status, void *user_data)
 {
     switch (connection_status) {
         case TOX_CONNECTION_NONE:

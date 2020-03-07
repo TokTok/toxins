@@ -90,7 +90,7 @@ static int reconnect(void)
 
 static int current_group = -1;
 
-static void callback_group_invite(Tox *tox, uint32_t fid, TOX_CONFERENCE_TYPE type, const uint8_t *data, size_t length,
+static void callback_group_invite(Tox *tox, uint32_t fid, Tox_Conference_Type type, const uint8_t *data, size_t length,
                                   void *userdata)
 {
     if (current_group == -1) {
@@ -98,7 +98,7 @@ static void callback_group_invite(Tox *tox, uint32_t fid, TOX_CONFERENCE_TYPE ty
     }
 }
 
-static void callback_friend_message(Tox *tox, uint32_t fid, TOX_MESSAGE_TYPE type, const uint8_t *message,
+static void callback_friend_message(Tox *tox, uint32_t fid, Tox_Message_Type type, const uint8_t *message,
                                     size_t length,
                                     void *userdata)
 {
@@ -117,7 +117,7 @@ static void callback_friend_message(Tox *tox, uint32_t fid, TOX_MESSAGE_TYPE typ
     }
 }
 
-static void copy_groupmessage(Tox *tox, uint32_t groupnumber, uint32_t friendgroupnumber, TOX_MESSAGE_TYPE type,
+static void copy_groupmessage(Tox *tox, uint32_t groupnumber, uint32_t friendgroupnumber, Tox_Message_Type type,
                               const uint8_t *message, size_t length,
                               void *userdata)
 {
@@ -125,7 +125,7 @@ static void copy_groupmessage(Tox *tox, uint32_t groupnumber, uint32_t friendgro
         return;
     }
 
-    TOX_ERR_CONFERENCE_PEER_QUERY error;
+    Tox_Err_Conference_Peer_Query error;
     size_t namelen = tox_conference_peer_get_name_size(tox, groupnumber, friendgroupnumber, &error);
     uint8_t name[TOX_MAX_NAME_LENGTH];
     tox_conference_peer_get_name(tox, groupnumber, friendgroupnumber, name, nullptr);

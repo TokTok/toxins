@@ -45,7 +45,7 @@
 #endif
 #include <fcntl.h>
 
-static void print_online(Tox *tox, uint32_t friendnumber, TOX_CONNECTION status, void *userdata)
+static void print_online(Tox *tox, uint32_t friendnumber, Tox_Connection status, void *userdata)
 {
     if (status) {
         printf("\nOther went online.\n");
@@ -54,7 +54,7 @@ static void print_online(Tox *tox, uint32_t friendnumber, TOX_CONNECTION status,
     }
 }
 
-static void print_message(Tox *tox, uint32_t friendnumber, TOX_MESSAGE_TYPE type, const uint8_t *string, size_t length,
+static void print_message(Tox *tox, uint32_t friendnumber, Tox_Message_Type type, const uint8_t *string, size_t length,
                           void *userdata)
 {
     int master = *((int *)userdata);
