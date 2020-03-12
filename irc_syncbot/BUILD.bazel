@@ -9,6 +9,7 @@ cc_binary(
 
 sh_test(
     name = "irc_syncbot_test",
+    size = "small",
     srcs = [":irc_syncbot"],
     args = ["--help"],
 )

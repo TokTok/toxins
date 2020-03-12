@@ -6,6 +6,7 @@ cc_binary(
 
 sh_test(
     name = "echobot_test",
+    size = "small",
     srcs = [":echobot"],
     args = ["--help"],
 )

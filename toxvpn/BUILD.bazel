@@ -45,6 +45,7 @@ cc_binary(
 
 sh_test(
     name = "toxvpn_test",
+    size = "small",
     srcs = [":toxvpn"],
     args = ["--help"],
     data = ["import/res/bootstrap.json"],

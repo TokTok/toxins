@@ -10,6 +10,7 @@ cc_binary(
 
 sh_test(
     name = "tox_shell_test",
+    size = "small",
     srcs = [":tox_shell"],
     args = ["--help"],
 )
