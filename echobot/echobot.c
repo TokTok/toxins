@@ -18,7 +18,6 @@ typedef struct DHT_node {
     const char *ip;
     uint16_t port;
     const char key_hex[TOX_PUBLIC_KEY_SIZE * 2 + 1];
-    unsigned char key_bin[TOX_PUBLIC_KEY_SIZE];
 } DHT_node;
 
 void friend_request_cb(Tox *tox, const uint8_t *public_key, const uint8_t *message, size_t length,
@@ -68,20 +67,21 @@ int main(int argc, char **argv)
     tox_self_set_status_message(tox, (const uint8_t *)status_message, strlen(status_message), NULL);
 
     DHT_node nodes[] = {
-        {"178.62.250.138",             33445, "788236D34978D1D5BD822F0A5BEBD2C53C64CC31CD3149350EE27D4D9A2F9B6B", {0}},
-        {"2a03:b0c0:2:d0::16:1",       33445, "788236D34978D1D5BD822F0A5BEBD2C53C64CC31CD3149350EE27D4D9A2F9B6B", {0}},
-        {"tox.zodiaclabs.org",         33445, "A09162D68618E742FFBCA1C2C70385E6679604B2D80EA6E84AD0996A1AC8A074", {0}},
-        {"163.172.136.118",            33445, "2C289F9F37C20D09DA83565588BF496FAB3764853FA38141817A72E3F18ACA0B", {0}},
-        {"2001:bc8:4400:2100::1c:50f", 33445, "2C289F9F37C20D09DA83565588BF496FAB3764853FA38141817A72E3F18ACA0B", {0}},
-        {"128.199.199.197",            33445, "B05C8869DBB4EDDD308F43C1A974A20A725A36EACCA123862FDE9945BF9D3E09", {0}},
-        {"2400:6180:0:d0::17a:a001",   33445, "B05C8869DBB4EDDD308F43C1A974A20A725A36EACCA123862FDE9945BF9D3E09", {0}},
-        {"node.tox.biribiri.org",      33445, "F404ABAA1C99A9D37D61AB54898F56793E1DEF8BD46B1038B9D822E8460FAB67", {0}}
+        {"85.143.221.42",                      33445, "DA4E4ED4B697F2E9B000EEFE3A34B554ACD3F45F5C96EAEA2516DD7FF9AF7B43"},
+        {"2a04:ac00:1:9f00:5054:ff:fe01:becd", 33445, "DA4E4ED4B697F2E9B000EEFE3A34B554ACD3F45F5C96EAEA2516DD7FF9AF7B43"},
+        {"78.46.73.141",                       33445, "02807CF4F8BB8FB390CC3794BDF1E8449E9A8392C5D3F2200019DA9F1E812E46"},
+        {"2a01:4f8:120:4091::3",               33445, "02807CF4F8BB8FB390CC3794BDF1E8449E9A8392C5D3F2200019DA9F1E812E46"},
+        {"tox.initramfs.io",                   33445, "3F0A45A268367C1BEA652F258C85F4A66DA76BCAA667A49E770BCC4917AB6A25"},
+        {"tox2.abilinski.com",                 33445, "7A6098B590BDC73F9723FC59F82B3F9085A64D1B213AAF8E610FD351930D052D"},
+        {"205.185.115.131",                       53, "3091C6BEB2A993F1C6300C16549FABA67098FF3D62C6D253828B531470B53D68"},
+        {"tox.kurnevsky.net",                  33445, "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23"}
     };
 
     for (size_t i = 0; i < sizeof(nodes) / sizeof(DHT_node); i ++) {
-        sodium_hex2bin(nodes[i].key_bin, sizeof(nodes[i].key_bin),
-                       nodes[i].key_hex, sizeof(nodes[i].key_hex) - 1, NULL, NULL, NULL);
-        tox_bootstrap(tox, nodes[i].ip, nodes[i].port, nodes[i].key_bin, NULL);
+        unsigned char key_bin[TOX_PUBLIC_KEY_SIZE];
+        sodium_hex2bin(key_bin, sizeof(key_bin), nodes[i].key_hex, sizeof(nodes[i].key_hex) - 1,
+                       NULL, NULL, NULL);
+        tox_bootstrap(tox, nodes[i].ip, nodes[i].port, key_bin, NULL);
     }
 
     uint8_t tox_id_bin[TOX_ADDRESS_SIZE];
@@ -100,6 +100,8 @@ int main(int argc, char **argv)
     tox_callback_friend_message(tox, friend_message_cb);
 
     tox_callback_self_connection_status(tox, self_connection_status_cb);
+
+    printf("Connecting...\n");
 
     while (1) {
         tox_iterate(tox, NULL);
