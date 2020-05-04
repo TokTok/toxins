@@ -125,17 +125,17 @@ void friend_message_cb(Tox *tox, uint32_t friend_number, Tox_Message_Type type, 
 void self_connection_status_cb(Tox *tox, Tox_Connection connection_status, void *user_data)
 {
     switch (connection_status) {
-        case TOX_CONNECTION_NONE:
-            printf("Offline\n");
-            break;
+    case TOX_CONNECTION_NONE:
+        printf("Offline\n");
+        break;
 
-        case TOX_CONNECTION_TCP:
-            printf("Online, using TCP\n");
-            break;
+    case TOX_CONNECTION_TCP:
+        printf("Online, using TCP\n");
+        break;
 
-        case TOX_CONNECTION_UDP:
-            printf("Online, using UDP\n");
-            break;
+    case TOX_CONNECTION_UDP:
+        printf("Online, using UDP\n");
+        break;
     }
 }
 
