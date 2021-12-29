@@ -23,7 +23,7 @@ typedef struct DHT_node {
 const char *savedata_filename = "savedata.tox";
 const char *savedata_tmp_filename = "savedata.tox.tmp";
 
-Tox *create_tox()
+Tox *create_tox(void)
 {
     Tox *tox;
 
@@ -40,8 +40,11 @@ Tox *create_tox()
 
         uint8_t *savedata = malloc(fsize);
 
-        fread(savedata, fsize, 1, f);
+        size_t read_size = fread(savedata, fsize, 1, f);
         fclose(f);
+        if (read_size != fsize) {
+            return NULL;
+        }
 
         options.savedata_type = TOX_SAVEDATA_TYPE_TOX_SAVE;
         options.savedata_data = savedata;
@@ -149,6 +152,10 @@ int main(int argc, char **argv)
     }
 
     Tox *tox = create_tox();
+    if (tox == NULL) {
+        fprintf(stderr, "Failed to create Tox instance\n");
+        return 1;
+    }
 
     const char *name = "Echo Bot";
     tox_self_set_name(tox, (const uint8_t *)name, strlen(name), NULL);
