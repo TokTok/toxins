@@ -23,7 +23,7 @@ typedef struct DHT_node {
 const char *savedata_filename = "savedata.tox";
 const char *savedata_tmp_filename = "savedata.tox.tmp";
 
-Tox *create_tox()
+Tox *create_tox(void)
 {
     Tox *tox;
 
@@ -39,9 +39,16 @@ Tox *create_tox()
         fseek(f, 0, SEEK_SET);
 
         uint8_t *savedata = malloc(fsize);
+        if (savedata == NULL) {
+            return NULL;
+        }
 
-        fread(savedata, fsize, 1, f);
+        size_t read_size = fread(savedata, fsize, 1, f);
         fclose(f);
+
+        if (read_size != 1) {
+            return NULL;
+        }
 
         options.savedata_type = TOX_SAVEDATA_TYPE_TOX_SAVE;
         options.savedata_data = savedata;
@@ -61,11 +68,22 @@ void update_savedata_file(const Tox *tox)
 {
     size_t size = tox_get_savedata_size(tox);
     uint8_t *savedata = malloc(size);
+    if (savedata == NULL) {
+        fprintf(stderr, "Failed to allocate memory for save data\n");
+        return;
+    }
+
     tox_get_savedata(tox, savedata);
 
     FILE *f = fopen(savedata_tmp_filename, "wb");
-    fwrite(savedata, size, 1, f);
+    size_t written = fwrite(savedata, size, 1, f);
     fclose(f);
+    if (written != 1) {
+        fprintf(stderr, "Failed to write save file\n");
+        free(savedata);
+        remove(savedata_tmp_filename);
+        return;
+    }
 
     rename(savedata_tmp_filename, savedata_filename);
 
@@ -149,6 +167,11 @@ int main(int argc, char **argv)
     }
 
     Tox *tox = create_tox();
+
+    if (tox == NULL) {
+        fprintf(stderr, "Failed to create Tox instance\n");
+        return 1;
+    }
 
     const char *name = "Echo Bot";
     tox_self_set_name(tox, (const uint8_t *)name, strlen(name), NULL);
