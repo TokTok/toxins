@@ -42,6 +42,7 @@ Tox *create_tox(void)
 
         size_t read_size = fread(savedata, fsize, 1, f);
         fclose(f);
+
         if (read_size != fsize) {
             return NULL;
         }
@@ -152,6 +153,7 @@ int main(int argc, char **argv)
     }
 
     Tox *tox = create_tox();
+
     if (tox == NULL) {
         fprintf(stderr, "Failed to create Tox instance\n");
         return 1;
