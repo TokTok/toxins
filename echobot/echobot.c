@@ -39,6 +39,7 @@ Tox *create_tox(void)
         fseek(f, 0, SEEK_SET);
 
         uint8_t *savedata = malloc(fsize);
+
         if (savedata == NULL) {
             return NULL;
         }
@@ -68,6 +69,7 @@ void update_savedata_file(const Tox *tox)
 {
     size_t size = tox_get_savedata_size(tox);
     uint8_t *savedata = malloc(size);
+
     if (savedata == NULL) {
         fprintf(stderr, "Failed to allocate memory for save data\n");
         return;
@@ -78,6 +80,7 @@ void update_savedata_file(const Tox *tox)
     FILE *f = fopen(savedata_tmp_filename, "wb");
     size_t written = fwrite(savedata, size, 1, f);
     fclose(f);
+
     if (written != 1) {
         fprintf(stderr, "Failed to write save file\n");
         free(savedata);
