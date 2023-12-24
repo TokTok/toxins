@@ -29,6 +29,7 @@ cc_binary(
         "'-DBOOTSTRAP_FILE=\"toxins/toxvpn/import/res/bootstrap.json\"'",
         "-DZMQ",
     ],
+    tags = ["no-cross"],
     deps = [
         "//c-toxcore",
         "@json",
@@ -51,4 +52,5 @@ sh_test(
     srcs = [":toxvpn"],
     args = ["--help"],
     data = ["import/res/bootstrap.json"],
+    tags = ["no-cross"],
 )
