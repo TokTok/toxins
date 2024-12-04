@@ -43,6 +43,7 @@ cc_binary(
 cc_binary(
     name = "toxvpn-remote",
     srcs = ["import/src/toxvpn-remote.cpp"],
+    tags = ["no-cross"],
     deps = ["@libzmq"],
 )
 

@@ -3,6 +3,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "irc_syncbot",
     srcs = ["irc_syncbot.c"],
+    tags = ["no-windows"],
     deps = [
         "//c-toxcore",
         "//toxins/util:misc_tools",
@@ -14,4 +15,5 @@ sh_test(
     size = "small",
     srcs = [":irc_syncbot"],
     args = ["--help"],
+    tags = ["no-windows"],
 )

@@ -4,6 +4,7 @@ cc_binary(
     name = "tox_shell",
     srcs = ["tox_shell.c"],
     linkopts = ["-lutil"],
+    tags = ["no-windows"],
     deps = [
         "//c-toxcore",
         "//toxins/util:misc_tools",
@@ -15,4 +16,5 @@ sh_test(
     size = "small",
     srcs = [":tox_shell"],
     args = ["--help"],
+    tags = ["no-windows"],
 )

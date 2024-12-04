@@ -3,7 +3,11 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "echobot",
     srcs = ["echobot.c"],
-    deps = ["//c-toxcore"],
+    tags = ["no-windows"],
+    deps = [
+        "//c-toxcore",
+        "@libsodium",
+    ],
 )
 
 sh_test(
@@ -11,4 +15,5 @@ sh_test(
     size = "small",
     srcs = [":echobot"],
     args = ["--help"],
+    tags = ["no-windows"],
 )
