@@ -1,5 +1,6 @@
 # Bracket Style Options
 --style=kr
+--attach-namespaces
 
 # Tab Options
 --indent=spaces=4
@@ -9,16 +10,21 @@
 
 # Padding Options
 --pad-header
---break-blocks
 --pad-oper
+# Not supported in restyled's astyle.
+#--unpad-brackets
 --unpad-paren
 --align-pointer=name
 --align-reference=name
+# Disabled because it causes very large changes and it's unclear whether we
+# want all of those.
+#--squeeze-ws
 
 # Formatting Options
---add-brackets
+--add-braces
 --convert-tabs
---max-code-length=120
+--max-code-length=200
+--attach-return-type
 
 # Other Options
 --preserve-date

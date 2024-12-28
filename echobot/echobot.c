@@ -27,9 +27,10 @@ Tox *create_tox(void)
 {
     Tox *tox;
 
-    struct Tox_Options options;
-
-    tox_options_default(&options);
+    Tox_Options *options = tox_options_new(NULL);
+    if (options == NULL) {
+        return NULL;
+    }
 
     FILE *f = fopen(savedata_filename, "rb");
 
@@ -51,17 +52,17 @@ Tox *create_tox(void)
             return NULL;
         }
 
-        options.savedata_type = TOX_SAVEDATA_TYPE_TOX_SAVE;
-        options.savedata_data = savedata;
-        options.savedata_length = fsize;
+        tox_options_set_savedata_type(options, TOX_SAVEDATA_TYPE_TOX_SAVE);
+        tox_options_set_savedata_data(options, savedata, fsize);
 
-        tox = tox_new(&options, NULL);
+        tox = tox_new(options, NULL);
 
         free(savedata);
     } else {
-        tox = tox_new(&options, NULL);
+        tox = tox_new(options, NULL);
     }
 
+    tox_options_free(options);
     return tox;
 }
 
